@@ -3,6 +3,7 @@
 import Image from "next/image";
 import news from "@/components/hooks/News";
 import useEmblaCarousel from "embla-carousel-react";
+import Link from "next/link";
 
 export default function NewsBanner() {
   const mainNews = news[0];
@@ -16,9 +17,10 @@ export default function NewsBanner() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-6 mb-8 mt-16">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-auto md:h-[510px]">
-
+           
         <div className="md:col-span-3 relative h-[300px] md:h-full group cursor-pointer overflow-hidden rounded-lg">
-          <Image
+          <Link href={`/news/${mainNews.slug}`}>
+ <Image
             src={mainNews.img}
             alt={mainNews.title}
             fill
@@ -33,6 +35,8 @@ export default function NewsBanner() {
               {mainNews.title}
             </h1>
           </div>
+           </Link>
+         
         </div>
 
         <div className="md:col-span-1 relative h-[400px] md:h-full flex flex-col">
@@ -60,7 +64,8 @@ export default function NewsBanner() {
                   className="relative flex-[0_0_160px] md:flex-[0_0_32.5%] min-h-0 mb-[1.25%] last:mb-0"
                 >
                   <div className="relative h-full w-full group cursor-pointer overflow-hidden rounded-lg">
-                    <Image
+                    <Link href={`/news/${item.slug}`}>
+                     <Image
                       src={item.img}
                       alt={item.title}
                       fill
@@ -72,6 +77,8 @@ export default function NewsBanner() {
                         {item.title}
                       </h3>
                     </div>
+                    </Link>
+                   
                   </div>
                 </div>
               ))}
