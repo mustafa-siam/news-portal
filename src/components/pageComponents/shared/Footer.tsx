@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-// Lucide icons import
 import { 
   Instagram, 
   Twitter, 
@@ -9,8 +8,16 @@ import {
   Mail, 
 } from "lucide-react";
 
+type SocialLink = { icon: React.ReactNode; url: string };
+type SectionLink = string | SocialLink;
+
+interface LinkSection {
+  title: string;
+  links: SectionLink[];
+}
+
 const Footer = () => {
-  const linkSections = [
+  const linkSections: LinkSection[] = [
     {
       title: "Quick Links",
       links: ["Home", "Portfolio", "About Us", "Testimonial"],
@@ -68,7 +75,8 @@ const Footer = () => {
                         href="#"
                         className="text-white text-sm font-inter hover:text-[#6B3709] transition font-normal leading-[1.2]"
                       >
-                        {link}
+                        {/* Type check করার জন্য typeof ব্যবহার করা হয়েছে */}
+                        {typeof link === 'string' ? link : ""}
                       </a>
                     </li>
                   ))}
@@ -77,12 +85,15 @@ const Footer = () => {
                 <ul className="flex gap-4">
                   {section.links.map((item, i) => (
                     <li key={i}>
-                      <a
-                        href={item.url}
-                        className="w-10 h-10 flex items-center justify-center rounded-none bg-white/10 text-white"
-                      >
-                        {item.icon}
-                      </a>
+                      {/* item যদি অবজেক্ট হয় তবেই সেটি রেন্ডার হবে */}
+                      {typeof item !== 'string' && (
+                        <a
+                          href={item.url}
+                          className="w-10 h-10 flex items-center justify-center rounded-none bg-white/10 text-white"
+                        >
+                          {item.icon}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
